@@ -1,0 +1,40 @@
+server:
+  port: 8083
+
+spring:
+  profiles:
+    active: dev
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:postgresql://localhost:5432/email
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    queue: ms.email
+  liquibase:
+    changeLog: liquibase/master.xml
+    enabled: true
+  main:
+    allow-bean-definition-overriding: true
+logging:
+  level:
+    com:
+      ms:
+        email: TRACE
+
+#email-properties
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: kitzgustavo@gmail.com
+  password: clftzmwaekcssjks

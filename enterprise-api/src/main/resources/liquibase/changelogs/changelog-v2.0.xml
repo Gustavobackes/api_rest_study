@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+
+    <changeSet author="gustavo.backes" id="1">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="products_categories"
+                                 constraintName="FK_apcc8lxk2xnug8377fatvbn04" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="products"/>
+
+        <addForeignKeyConstraint baseColumnNames="categories_id" baseTableName="products_categories"
+                                 constraintName="FK_apcc8lxk2553422234tvbn03" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="categories"/>
+    </changeSet>
+
+</databaseChangeLog>
