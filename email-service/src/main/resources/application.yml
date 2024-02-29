@@ -10,10 +10,14 @@ spring:
     hibernate:
       ddl-auto: none
   datasource:
-    url: jdbc:postgresql://localhost:5432/email
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
   rabbitmq:
     host: localhost
     port: 5672
@@ -21,11 +25,6 @@ spring:
     password: guest
     virtual-host: /
     queue: ms.email
-  liquibase:
-    changeLog: liquibase/master.xml
-    enabled: true
-  main:
-    allow-bean-definition-overriding: true
 logging:
   level:
     com:

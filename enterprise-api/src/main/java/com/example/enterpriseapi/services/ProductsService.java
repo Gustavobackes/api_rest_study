@@ -3,7 +3,8 @@ package com.example.enterpriseapi.services;
 import com.example.enterpriseapi.domain.dtos.EmailDto;
 import com.example.enterpriseapi.domain.dtos.ProductsDto;
 import com.example.enterpriseapi.domain.entities.Products;
-import com.example.enterpriseapi.produtoInterface.ProductsInterface;
+import com.example.enterpriseapi.feign.EmailFeign;
+import com.example.enterpriseapi.repositories.ProductsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,14 +18,14 @@ import java.util.Optional;
 @Service
 public class ProductsService {
 
-    private final ProductsInterface repository;
+    private final ProductsRepository repository;
     private final ModelMapper modelMapper;
-    private final EmailService emailService;
+    private final EmailFeign emailFeign;
 
-    public ProductsService(ProductsInterface repository, ModelMapper modelMapper, EmailService emailService) {
+    public ProductsService(ProductsRepository repository, ModelMapper modelMapper, EmailFeign emailFeign) {
         this.repository = repository;
         this.modelMapper = modelMapper;
-        this.emailService = emailService;
+        this.emailFeign = emailFeign;
     }
 
 
@@ -58,7 +59,7 @@ public class ProductsService {
                 .text("text test")
                 .subject("subject test")
                 .build();
-        emailService.sendingEmail(emailDto);
+        emailFeign.sendingEmail(emailDto);
         return repository.save(products);
     }
 

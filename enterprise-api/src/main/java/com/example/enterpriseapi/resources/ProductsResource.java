@@ -26,7 +26,7 @@ public class ProductsResource {
         return service.getAllProducts(pageRequest);
     }
 
-    @GetMapping("{productId}")
+    @GetMapping("/{productId}")
     public ResponseEntity<Object> getProductsById(@PathVariable("productId") Long productId){
         return service.getProductById(productId);
     }

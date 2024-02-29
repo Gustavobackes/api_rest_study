@@ -2,7 +2,7 @@ package com.example.enterpriseapi.services;
 
 import com.example.enterpriseapi.domain.dtos.CategoriesDto;
 import com.example.enterpriseapi.domain.entities.Categories;
-import com.example.enterpriseapi.produtoInterface.CategoriesInterface;
+import com.example.enterpriseapi.repositories.CategoriesRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +16,10 @@ import java.util.Optional;
 @Service
 @Transactional
 public class CategoriesService {
-    private final CategoriesInterface repository;
+    private final CategoriesRepository repository;
     private final ModelMapper modelMapper;
 
-    public CategoriesService(CategoriesInterface repository, ModelMapper modelMapper) {
+    public CategoriesService(CategoriesRepository repository, ModelMapper modelMapper) {
         this.repository = repository;
         this.modelMapper = modelMapper;
     }
@@ -36,7 +36,7 @@ public class CategoriesService {
     public ResponseEntity<Object> getCategorieById(Long categorieId) {
         boolean exist = repository.existsById(categorieId);
         if (!exist) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("categoria com id " + categorieId + " não existe!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("categoria com id %d não existe!", categorieId));
         }
         Optional<Object> categories = repository.findById(categorieId).map(this::toCategoriesDto);
 
@@ -51,7 +51,7 @@ public class CategoriesService {
     public ResponseEntity<Object> updateById(Long categorieId, CategoriesDto categoriesDto) {
         Optional<Categories> categories = repository.findById(categorieId);
         if (categories.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("categoria com id " + categorieId + " não existe!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("categoria com id %d não existe!", categorieId));
         }
         categories.get().setTipo(categoriesDto.getTipo());
         categories.get().setPopularidade(categoriesDto.getPopularidade());

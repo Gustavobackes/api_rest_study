@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("categories")
+@RequestMapping("/categories")
 public class CategoriesResource {
     private final CategoriesService service;
 
@@ -24,22 +24,23 @@ public class CategoriesResource {
         return service.getAllCategories(pageRequest);
     }
 
-    @GetMapping("{categorieId}")
-    public ResponseEntity<Object> getCategorieById(@PathVariable("categorieId")Long categorieId){
+    @GetMapping("/{categorieId}")
+    public ResponseEntity<Object> getCategorieById(@PathVariable("categorieId") Long categorieId) {
         return service.getCategorieById(categorieId);
     }
 
-    @PostMapping("post")
-    public ResponseEntity<Object> postNewCategorie(@RequestBody CategoriesDto categoriesDto){
+    @PostMapping("/post")
+    public ResponseEntity<Object> postNewCategorie(@RequestBody CategoriesDto categoriesDto) {
         return service.postNewCategorie(categoriesDto);
     }
+
     @PutMapping("/put/{categorieId}")
-    public ResponseEntity<Object> updateByid(@PathVariable("categorieId") Long categorieId, @RequestBody CategoriesDto categoriesDto){
+    public ResponseEntity<Object> updateByid(@PathVariable("categorieId") Long categorieId, @RequestBody CategoriesDto categoriesDto) {
         return service.updateById(categorieId, categoriesDto);
     }
 
     @DeleteMapping("/delete/{categorieId}")
-    public ResponseEntity<Object> deleteById(@PathVariable("categorieId") Long caterioId){
+    public ResponseEntity<Object> deleteById(@PathVariable("categorieId") Long caterioId) {
         return service.deleteById(caterioId);
     }
 }
